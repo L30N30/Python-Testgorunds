@@ -74,51 +74,37 @@ class Nodo:
         return str(self.get_estado())
 
 
-def busqueda_BPA_solucion(estado_inicial, solucion):
+def takeSecond(elem):
+    return elem[1]
+
+
+def busqueda_A_Estrella(estado_inicial, solucion, costo):
     resuelto = False
     nodos_visitados = []
     nodos_frontera = []
 
     nodo_raiz = Nodo(estado_inicial)
-    nodos_frontera.append(nodo_raiz)
+    nodo_raiz.set_costo(costo)
+    # Se inicializa la lista con él [nodo, costo+heurística]
+    nodos_frontera.append([nodo_raiz, 0])
+
     while (not resuelto) and len(nodos_frontera) != 0:
-        # Por anchura
-        nodo_actual = nodos_frontera.pop()
-        # Por profundidad
-        #nodo_actual = nodos_frontera.pop()
+        nodos_frontera.sort(key=takeSecond)
+        nodo_actual = nodos_frontera[0][0]
+        nodos_frontera.pop(0)
         # extraer nodo y añadirlo a visitados
         nodos_visitados.append(nodo_actual)
 
         if nodo_actual.get_estado() == solucion:
-            # Solución encontrada
             resuelto = True
             return nodo_actual
         else:
-            # expandir nodos hijo
-            estado_nodo = nodo_actual.get_estado()
+            estado_nodo = nodo_actual.get_estado()[:]
 
-            # Lista de objetos Nodo
-            lista_hijos = []
-            dif = 0
+            # Acciones para crear nuevos estados
+            nuevo_nodo = Nodo()
 
-            # Ciclo que cambia basado en la cantidad de elementos del vector
-            for i in range(len(estado_nodo) - 1):
-                if nodo_actual.getAccionAnterior() == i:
-                    dif += 1
-                    continue
-                hijo = nodo_actual.get_estado()[:]
-                anterior = hijo[i]
-                hijo[i] = hijo[i+1]
-                hijo[i+1] = anterior
-                #print(hijo)
-                lista_hijos.append(Nodo(hijo))
-                lista_hijos[i-dif].setAccionAnterior(i)
+            if not nuevo_nodo.en_lista(nodos_visitados) and not nuevo_nodo.en_lista(nodos_frontera):
+                nodos_frontera.append([nuevo_nodo, 'costo_heuristica'])
 
-                if not lista_hijos[i-dif].en_lista(nodos_visitados) and not lista_hijos[i-dif].en_lista(nodos_frontera):
-                    nodos_frontera.append(lista_hijos[i-dif])
-
-            print('============')
-            nodo_actual.set_hijo(lista_hijos)
-
-
-busqueda_BPA_solucion([3, 2, 1], [1, 2, 3])
+            nodo_actual.set_hijo(nuevo_nodo)
