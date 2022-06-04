@@ -1,7 +1,16 @@
+'''INTEGRANTES:
+-Illanes Alarcón Leonardo
+-Reyes Alejandra
+-Mamani Lugo Maidy
+-Polo Marco
+'''
+
+
 import random
 import time
 
 
+# Base de datos de nombres
 nombres = ['Alberto', 'José', 'María', 'Daniel', 'Benjamin', 'Pablo', 'Antonio', 'Debora', 'Ivana', 'Leonardo',
            'Danilo', 'Mateo', 'Elva', 'Isabel', 'Alejandro', 'Alejandra', 'Roberto', 'Dana', 'Sara', 'Monica',
            'Veronica', 'Wendy', 'Nicole', 'Dayana', 'Marco']
@@ -9,9 +18,6 @@ nombres = ['Alberto', 'José', 'María', 'Daniel', 'Benjamin', 'Pablo', 'Antonio
 # Lista de los puestos disponibles
 lista_puestos = ['Jefe', 'Sub Jefe', 'Manager', 'Ingeniero 1', 'Ingeniero 2',
                  'Administrador 1', 'Administrador 2', 'Secretario 1', 'Secretario 2', 'Secretario 3']
-
-
-# lista_puestos = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20']
 
 
 def sort_key(lista):
@@ -83,8 +89,6 @@ def procrear(individuo1, individuo2):
 
 # Realiza la búsqueda
 def run():
-    quitar_duplicados = False  # Quita los duplicados de la población
-    mantener_poblacion = False  # Repoblación al azar en caso de haber un número menor al especificado
     controlar_sobrepoblacion = True  # Mantiene el número de población menor o igual al especificado
 
     # Recomendado = 300, siempre menor al número de individuos (razón de 1/3 número de individuos)
@@ -116,22 +120,6 @@ def run():
             # Reiniciar la lista de individuos
             for i in individuos_fit:
                 poblacion.append(i[0])
-
-            # Quitar duplicados
-            if quitar_duplicados:
-                # print('Purgando duplicados...')
-                result = []
-                for i in poblacion:
-                    if i not in result:
-                        result.append(i)
-                poblacion = []
-                poblacion = result
-
-            # Repoblación nueva
-            if mantener_poblacion and (len(poblacion) < numero_individuos):
-                # print('Repoblando...')
-                while len(poblacion) < numero_individuos:
-                    poblacion.append(crear_individuo(numero_empleados))
 
             # Procrear mejores individuos
             for i in range(num_procreacion):
