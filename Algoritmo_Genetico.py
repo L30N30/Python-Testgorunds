@@ -1,6 +1,8 @@
 import random
 import time
 
+espacio = '======================'
+
 
 # Crea una población del tamaño especificado
 def crear_poblacion(numero, longitud):
@@ -64,7 +66,7 @@ def run():
     # Recomendado = 300, siempre menor al número de individuos (razón de 1/3 número de individuos)
     num_procreacion = 300
     prob_mutacion = 0.2  # Recomendado = 20%
-    numero_empleados = 15  # Recomendado = 10
+    numero_empleados = 10  # Recomendado = 10
     numero_individuos = 1000  # Recomendado = 1000
 
     poblacion = crear_poblacion(numero_individuos, numero_empleados)
@@ -163,12 +165,13 @@ def testing_grounds(numero_pruebas):
         # print(f'Generaciones: {ciclos}')
 
     tmp_end = time.time()
-    print('=========================')
+    print(f'{espacio * 2}')
     print(f'Tiempo promedio: {round(suma/numero_pruebas, 3)}')
+    print(espacio)
     print(f'Tiempo mínimo: {minimo}')
     print(f'Tiempo máximo: {maximo}')
-
-    print(f'Tiempo de trabajo: {round(tmp_end - tmp, 3)}')
+    print(espacio)
+    print(f'Tiempo Total: {round(tmp_end - tmp, 3)}')
 
 
 testing_grounds(10)
