@@ -64,10 +64,10 @@ def run():
     controlar_sobrepoblacion = True  # Mantiene el número de población menor o igual al especificado
 
     # Recomendado = 300, siempre menor al número de individuos (razón de 1/3 número de individuos)
-    num_procreacion = 300
+    num_procreacion = 30
     prob_mutacion = 0.2  # Recomendado = 20%
-    numero_empleados = 20  # Recomendado = 10
-    numero_individuos = 1000  # Recomendado = 1000
+    numero_empleados = 10  # Recomendado = 10
+    numero_individuos = 100  # Recomendado = 1000
 
     poblacion = crear_poblacion(numero_individuos, numero_empleados)
     individuos_fit = []
@@ -174,4 +174,4 @@ def testing_grounds(numero_pruebas):
     print(f'Tiempo Total: {round(tmp_end - tmp, 3)}')
 
 
-testing_grounds(10)
+testing_grounds(100)
