@@ -1,7 +1,7 @@
 import random
 import time
 
-espacio = '======================'
+espacio = '==================='
 
 
 # Crea una población del tamaño especificado
@@ -166,6 +166,7 @@ def testing_grounds(numero_pruebas):
 
     tmp_end = time.time()
     print(f'{espacio * 2}')
+    print(f'{espacio * 2}')
     print(f'Tiempo promedio: {round(suma/numero_pruebas, 3)}')
     print(espacio)
     print(f'Tiempo mínimo: {minimo}')
@@ -174,4 +175,4 @@ def testing_grounds(numero_pruebas):
     print(f'Tiempo Total: {round(tmp_end - tmp, 3)}')
 
 
-testing_grounds(100)
+testing_grounds(10)

@@ -8,7 +8,7 @@ def generar_casillas(dim, num_reinas):
     lista = []
 
     while len(lista) < num_reinas:
-        pos = [random.randint(0, dim-1), random.randint(0, dim-1)]
+        pos = random.randint(0, dim)
 
         if pos not in lista:
             lista.append(pos)
@@ -19,25 +19,12 @@ def generar_casillas(dim, num_reinas):
 def generar_tabla(dim, num_reinas):
     tabla = []
     lista_pos = generar_casillas(dim, num_reinas)
-    cont = 0
 
     for i in range(dim):
-        columna = []
-
-        for j in range(dim):
-            isReina = False
-
-            for k in lista_pos:
-                if k[0] == i and k[1] == j:
-                    isReina = True
-
-            if isReina:
-                columna.append(reina)
-                cont += 1
-            else:
-                columna.append('')
-
-        tabla.append(columna)
+        if i in lista_pos:
+            tabla.append(random.randint(1, dim))
+        else:
+            tabla.append(0)
 
     return tabla
 
@@ -52,8 +39,14 @@ def generar_poblacion(num_poblacion, dim, num_reinas):
 
 
 def fitness(individuo):
-    dim = len(individuo[0])
-    print(dim)
+    dim = len(individuo)
+    fit = 0
+
+    for i in range(dim):
+        if individuo[i] != 0 and (i + 1 < dim - 1):
+            for j in range(i + 1, dim):
+                if individuo[j] == individuo[i]:
+                    fit += 10
 
 
 def run():
@@ -64,11 +57,7 @@ def run():
 
     poblacion = generar_poblacion(num_poblacion, dimension, num_reinas)
     resuelto = False
-    print(poblacion)
-    fitness(poblacion[0])
 
-    #while not resuelto:
-        #print('a')
-
+    # while not resuelto:
 
 run()
