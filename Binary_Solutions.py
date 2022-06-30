@@ -32,5 +32,5 @@ def decimal_binario(decimal, num_ceros):
     print(result)
 
 
-# binario_decimal([])
-# decimal_binario(0, 8)
+binario_decimal([1,1,0,0,1,0,1,1])
+# decimal_binario(99, 8)
