@@ -1,7 +1,7 @@
-import os
+# import os
 import numpy as np
 from matplotlib import pyplot
-from scipy import optimize
+# from scipy import optimize
 from scipy.io import loadmat
 
 import utils
@@ -41,7 +41,7 @@ def predict(theta_1, theta_2, x):
     """
     # Asegurar que la entrada tenga dos dimensiones
     if x.ndim == 1:
-        x = x[None]  # promover a dos dimensiones
+        x = x[None]  # Promover a dos dimensiones
 
     # Variables útiles
     m = x.shape[0]
@@ -65,7 +65,6 @@ def run():
 
     # Se convierte la etiqueta 10 a 0
     y[y == 10] = 0
-
     m = y.size
 
     # se permutan los ejemplos, para ser usados para visualizar ina imagen a la vez
@@ -74,13 +73,14 @@ def run():
     # Selecciona 100 puntos al azar de datos para visualizar
     rand_indices = np.random.choice(m, 100, replace=False)
     sel = x[rand_indices, :]
+
     # sel = x[0,:]
     utils.displayData(sel)
 
     # Configura los parámetros que se requieren
-    input_layer_size = 400  # Entrada Imagen de Digitos de 20x20
+    input_layer_size = 400  # Entrada Imagen de dígitos de 20x20
     hidden_layer_size = 25  # 25 unidades ocultas
-    num_labels = 10  # 10 etiquetas, del 1 al 10 (se remapea el numero 10 con el valor de 0)
+    num_labels = 10  # 10 etiquetas, del 1 al 10 (se remaps el numero 10 con el valor de 0)
 
     # Carga el archivo .mat, que devuelve un diccionario
     weights = loadmat('ex3weights.mat')
@@ -90,12 +90,21 @@ def run():
     # theta_2 has size 10 x 26
     theta_1, theta_2 = weights['Theta1'], weights['Theta2']
 
-    # intercambia la primera y la última columna de theta_2, debido al legado de la indexación de MATLAB,
-    # desde que el archivo de peso ex3weights.mat se guardó según la indexación de MATLAB
+    # Intercambia la primera y la última columna de theta_2, debido al legado de la indexación de MATLAB,
+    # Desde que el archivo de peso ex3weights.mat se guardó según la indexación de MATLAB
     theta_2 = np.roll(theta_2, 1, axis=0)
 
     pred = predict(theta_1, theta_2, x)
-    print('Precisión del conjunto de entrenamiento: {:.1f}%'.format(np.mean(pred == y) * 100))
+    print('Precisión del conjunto de entrenamiento: {:.3f}%'.format(np.mean(pred == y) * 100))
+
+    if indices.size > 0:
+        i, indices = indices[0], indices[1:]
+        utils.displayData(x[i, :], figsize=(4, 4))
+        pred = predict(theta_1, theta_2, x[i, :])
+        print('Predicción de la red neuronal: {}'.format(*pred))
+    else:
+        print('No hay mas imágenes para mostrar!')
+
     pyplot.show()
 
 
