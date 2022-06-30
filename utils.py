@@ -4,6 +4,7 @@ from matplotlib import pyplot
 
 sys.path.append('..')
 
+
 def displayData(X, example_width=None, figsize=(10, 10)):
     """
     Displays 2D data stored in X in a nice grid.
